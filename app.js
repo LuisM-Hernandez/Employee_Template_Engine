@@ -49,7 +49,7 @@ function createManager() {
     ])
     .then((answers) => {
       const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOffice)
-
+      console.log(manager);
       if (answers.newEmployee = 'Yes') {
         addEmployee();
       }
@@ -108,6 +108,21 @@ function addEmployee() {
       },
     ])
     .then((answers) => {
+      if (answers.memberRole === 'Engineer') {
+        const engineer = new Engineer (answers.employeeName, answers.employeeId, answers.employeeEmail, answers.github)
+        console.log(engineer);
+      }
+      if (answers.memberRole === 'Intern') {
+        const intern = new Intern (answers.employeeName, answers.employeeId, answers.employeeEmail, answers.school)
+        console.log(intern);
+      }
+      if (answers.newEmployee === 'Yes') {
+        return addEmployee();
+      }
+      else{
+        console.log('It is done!');
+      }
+      
 
     })
     .catch((error) => {
