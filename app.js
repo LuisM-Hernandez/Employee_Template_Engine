@@ -9,11 +9,119 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { prompt } = require("inquirer");
 
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
+function createManager() {
+
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'managerName',
+        message: "What is your manager's name?",
+      },
+
+      {
+        type: 'input',
+        name: 'managerId',
+        message: "What is your manager's id?",
+      },
+      {
+        type: 'input',
+        name: 'managerEmail',
+        message: "What is your manager's email?",
+      },
+      {
+        type: 'input',
+        name: 'managerOffice',
+        message: "What is your manager's office number?",
+      },
+      {
+        type: 'list',
+        name: 'newEmployee',
+        message: "Do you want to add another employee?",
+        choices: ['Yes', 'No']
+      }
+    ])
+    .then((answers) => {
+      const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOffice)
+
+      if (answers.newEmployee = 'Yes') {
+        addEmployee();
+      }
+
+    })
+    .catch((error) => {
+      if (error.isTtyError) {
+
+      } else {
+        console.log("Something else went wrong");
+      }
+    });
+}
+
+
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "memberRole",
+        message: "What is this employee's role?",
+        choices: ["Engineer", "Intern"]
+      },
+      {
+        type: 'input',
+        name: 'employeeName',
+        message: "What is your employee name?",
+      },
+
+      {
+        type: 'input',
+        name: 'employeeId',
+        message: "What is your employee id?",
+      },
+      {
+        type: 'input',
+        name: 'employeeEmail',
+        message: "What is your employee email?",
+      },
+      {
+        type: 'input',
+        name: 'github',
+        message: "What is your engineer's github page?",
+      },
+      {
+        type: 'input',
+        name: 'school',
+        message: "What is your intern's school?",
+      },
+      {
+        type: 'list',
+        name: 'newEmployee',
+        message: "Do you want to add a another employee?",
+        choices: ['Yes', 'No']
+      },
+    ])
+    .then((answers) => {
+
+    })
+    .catch((error) => {
+      if (error.isTtyError) {
+      } else {
+        console.log("Something else went wrong");
+      }
+    });
+}
+
+function renderTeam() {
+
+}
+createManager()
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
